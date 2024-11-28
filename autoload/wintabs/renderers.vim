@@ -126,6 +126,13 @@ function! wintabs#renderers#buf_label(bufnr, config)
 endfunction
 
 function! wintabs#renderers#tab_label(tabnr)
+  if exists('*Wintabs_ui_tablabel')
+    let name = g:Wintabs_ui_tablabel(a:tabnr)
+    if !empty(name)
+      return name
+    endif
+  endif
+
   let label = ''
   if get(g:, 'loaded_taboo', 0)
     let label = TabooTabTitle(a:tabnr)

@@ -299,6 +299,26 @@ values: function
                       return file
                     endfunction
 
+*g:Wintabs_ui_tablabel*
+values: function
+                Function that generates the tab name
+                |g:wintabs_ui_vimtab_name_format|.
+                By default this uses the file name without any directories
+                ('%:t').
+                You can use this, for example, to set a user configurable
+                tab name instead of using the buffer name / tab index.
+
+                    function! g:Set_wintabs_tab_name()
+                      let new_name = input('Tab name: ', get(t:, 'wintabs_custom_tab_name', ''))
+                      let t:wintabs_custom_tab_name = new_name
+                    endfunction
+                    command! WintabsSetTabName call g:Set_wintabs_tab_name()
+
+                    function! g:Wintabs_ui_tablabel(tabnr)
+                      return gettabvar(a:tabnr, 'wintabs_custom_tab_name')
+                    endfunction
+
+
 *g:wintabs_ui_vimtab_name_format*
 values: string
 default: ' %n '
